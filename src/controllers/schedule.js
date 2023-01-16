@@ -65,7 +65,8 @@ const calculateSchedule = async (req, res) => {
 
 const generateNextCheckInDate = (date) => {
   const checkInDate = new Date(date.setDate(date.getDate() + 3));
-  checkInDate.setHours(12);
+  const checkInHour = Math.floor(Math.random() * (18 - 8 + 1) + 8);
+  checkInDate.setHours(checkInHour, 0, 0);
 
   return new Date(checkInDate).toISOString();
 };
