@@ -1,13 +1,5 @@
 version: '3'
 services:
-  redis-service:
-    image: 'redis:alpine'
-    ports:
-      - '6379:6379'
-    expose:
-      - '6379'
-    volumes:
-      - redis:/data/db
   mongodb-service:
     image: mongo:latest
     environment:
@@ -24,11 +16,9 @@ services:
   api-service:
     depends_on:
       - mongodb-service
-      - redis-service
     restart: unless-stopped
     links:
       - mongodb-service
-      - redis-service
     build: .
     environment:
       MONGO_USERNAME: $MONGO_USERNAME
@@ -36,7 +26,6 @@ services:
       MONGO_DB: $MONGO_DB
       MONGO_HOSTNAME: $MONGO_HOSTNAME
       MONGO_PORT: $MONGO_PORT
-      REDIS_URL: $REDIS_URL
     volumes:
       - .:/app
       - /app/node_modules
@@ -49,4 +38,3 @@ services:
 volumes:
   app:
   mongodb-data-service:
-  redis:

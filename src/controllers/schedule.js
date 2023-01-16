@@ -1,5 +1,4 @@
 const Schedule = require("../models/schedule");
-const redisClient = require("../redis/redis");
 
 const getSchedule = async (req, res) => {
   try {
